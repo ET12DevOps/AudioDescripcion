@@ -2,53 +2,54 @@
 //
 document.addEventListener("deviceready", onDeviceReady, false);
 
-// device APIs are available
-//
 function onDeviceReady() {
-    //playAudio('http://192.168.25.3:60000/stream/swyh.mp3');
-    document.getElementById('idioma').addEventListener('OnChange', SelecionarIdioma, false);
+    document.getElementById('idioma').addEventListener('OnChange', selecionarIdioma, false);
 }
 
-function SeleccionarIdioma(data)
-{
-    //console.log(data);
-    //console.log(document.getElementById('idioma').value);
+function seleccionarIdioma(data) {
 
     var hostname = '';
+    var msg = '';
+
     switch (document.getElementById('idioma').value) {
         case 'Español':
-            console.log('Reproduciendo idioma Español.')
-            //pasar cosas por un tiempo limitado 3 segundos
-            document.getElementById('mensaje').innerHTML = 'Reproduciendo español';
-            setTimeout(function () {
-            document.getElementById('mensaje').innerHTML = '';
-            }, 3000);
-            hostname = '192.168.2.3';
+            msg = 'Reproduciendo audio español';
+            console.log(msg);
+            document.getElementById('mensaje').innerHTML = msg;
+            hostname = '192.168.88.232';
             break;
         case 'Portugues':
-            console.log('Reproduciendo idioma Portugues.')
+            msg = 'Reproduciendo idioma Portugues';
+            console.log(msg);
+            document.getElementById('mensaje').innerHTML = msg;
             hostname = '';
             break;
         case 'Ingles':
-            console.log('Reproduciendo idioma Ingles.')
+            msg = 'Reproduciendo idioma Ingles';
+            console.log(msg);
+            document.getElementById('mensaje').innerHTML = msg;
             hostname = '';
             break;
         default:
-            console.log('Seleccione idioma.');
+            console.log('Seleccione idioma');
+            msg = "stop";
             break;
     }
-    playAudio('http://' + hostname + ':60000/stream/swyh.mp3');
+
+    if (msg !== 'stop') {
+        setTimeout(function () {
+            document.getElementById('mensaje').innerHTML = '';
+        }, 3000);
+
+        playAudio('http://' + hostname + ':60000/stream/swyh.mp3');
+    } else {
+        my_media.stop();
+        my_media = null;
+    }
 }
 
-// Audio player
-//
 var my_media = null;
 var mediaTimer = null;
-
-// Play audio 
-//
-
-
 
 function playAudio(src) {
     if (my_media === null) {
@@ -58,7 +59,7 @@ function playAudio(src) {
     // Play audio
     my_media.play();
     //alert("Transmición iniciada");
-  
+
     // Update my_media position every second
     //if (mediaTimer === null) {
     //    mediaTimer = setInterval(function () {
@@ -101,14 +102,15 @@ function playAudio(src) {
 // onSuccess Callback
 //
 function onSuccess() {
-    alert("Transmición iniciada");
+    //alert("Transmición iniciada");
 }
 
 // onError Callback
 //
 function onError(error) {
-    alert('code: ' + error.code + '\n' +
-        'message: ' + error.message + '\n');
+    var msg = 'code: ' + error.code + '\n' + 'message: ' + error.message + '\n';
+    console.log(msg);
+    //alert(msg);
 }
 
 // Set audio position
