@@ -1,0 +1,11 @@
+{
+     "android": {
+      "release": {
+        "keystore": "D:\\clave\\Planetario-key.keystore",
+        "storePassword": "radios12",
+        "alias": "sanmartin",
+        "password": "radios12",
+        "keystoreType": ""
+      }
+     }
+ }
